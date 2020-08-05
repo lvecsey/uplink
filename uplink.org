@@ -1,0 +1,3 @@
+* DONE test if url actually ends in -> and perhaps reject it
+* TODO dump the critbit to a disk and reload it when server restarts
+* TODO have a cluster of processes that share the same counter data

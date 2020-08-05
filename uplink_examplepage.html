@@ -1,0 +1,68 @@
+<HTML>
+
+  <HEAD>
+    <TITLE>Uplink Test Page</TITLE>
+  </HEAD>
+  
+  <BODY onload='uplink_noincr()'>
+
+    <h2>Uplink Test Page</h2>
+
+    <SCRIPT LANGUAGE='JavaScript'>
+
+      var my_url = 'http://example.com/~user/uplink/uplink_examplepage.html';
+
+      function uplink_xhronload(event) {
+      eval(event.target.response);
+      document.getElementById('uplink').innerHTML = uplink_counter;
+      }
+      
+      function uplink_noincr() {
+
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", "http://example.com/uplink?url=" + my_url + '&noincr=1');
+      xhr.onload = uplink_xhronload;
+
+      var formData = new FormData(document.getElementById("uplink_form"));
+      xhr.send(formData);
+
+      }
+      
+      function submit_uplink() {
+      
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", "http://example.com/uplink?url=" + my_url);
+      xhr.onload = uplink_xhronload;
+
+      var formData = new FormData(document.getElementById("uplink_form"));
+      xhr.send(formData);
+      
+      }
+      
+      </SCRIPT>
+
+    <TABLE BORDER="0">
+
+      <TR><TD>
+    
+	  <FORM ID="uplink_form">
+
+	    <INPUT TYPE="BUTTON" NAME="Uplink" VALUE="Uplink" onClick="javascript:submit_uplink()">
+	    
+	  </FORM>
+
+	</TD>
+
+	<TD>
+	  
+	  <SPAN ID="uplink">
+
+	  </SPAN>
+
+      </TD></TR>
+
+      </TABLE>
+    
+  </BODY>
+
+  </HTML>
