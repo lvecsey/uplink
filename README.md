@@ -19,7 +19,7 @@ And then configure your nginx server or similar web server:
 
 An AJAX example is provided in uplink_examplepage.html
 
-change the my_url based on where you host the page. You should also change the locations of the uplink server, from example.com to your own website domain.
+For each web page, change the *my_url* based on where you host the page. You should also change the locations of the uplink server, from example.com to your own website domain.
 
 You will notice that reloading the page will simply retrieve the current counter value. Pressing the Uplink button will increment the counter (through a server request)
 
