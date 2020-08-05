@@ -88,6 +88,8 @@ int main(int argc, char *argv[]) {
   char *client_url;
 
   int retval_qs;
+
+  int retval_ap;
   
   int retval;
 
@@ -145,10 +147,16 @@ int main(int argc, char *argv[]) {
     
     retval = sprintf(critbuf, "%s->", client_url);
     
-    retval = critbit0_allprefixed(&url_counters, critbuf, crit_getcount, &uplink_counter);
+    retval_ap = critbit0_allprefixed(&url_counters, critbuf, crit_getcount, &uplink_counter);
 
     printf("retval %d uplink_counter %lu\n", retval, uplink_counter);
 
+    if (retval_ap == 1) {
+
+      uplink_counter = 0;
+      
+    }
+    
     if (retval_qs == 2 && noincr == 1) {
 
       FCGX_FPrintF(request.out, "var uplink_counter = %lu;\n", uplink_counter);
@@ -156,26 +164,20 @@ int main(int argc, char *argv[]) {
       continue;
 
     }
-    
-    switch(retval) {
+
+    switch(retval_ap) {
     case 0:
     
       retval = sprintf(critbuf, "%s->%lu", client_url, uplink_counter);
       retval = critbit0_delete(&url_counters, critbuf);
       printf("(delete) retval %d\n", retval);
       
-      uplink_counter++;
-
-      break;
-      
-    case 1:
-
-      uplink_counter = 1;
-
       break;
       
     }
-      
+
+    uplink_counter++;
+    
     retval = sprintf(critbuf, "%s->%lu", client_url, uplink_counter); 
     retval = critbit0_insert(&url_counters, critbuf);
     printf("(insert) retval %d\n", retval);
